@@ -86,8 +86,7 @@ fun SportsApp(
     val uiState by viewModel.uiState.collectAsState()
 
     val contentType = when (windowSize) {
-        WindowWidthSizeClass.Compact -> {
-        }
+        WindowWidthSizeClass.Compact ,
 
         WindowWidthSizeClass.Medium -> SportsContentType.ListOnly
 
@@ -112,7 +111,7 @@ fun SportsApp(
 
                 onClick = {
                     viewModel.updateCurrentSport(it)
-                    viewModel.navigateToDetailPage()
+
                 },
                 onBackPressed = onBackPressed,
                 contentPadding = innerPadding,
@@ -165,14 +164,14 @@ fun SportsAppBar(
         title = {
             Text(
                 text =
-                if (isShowingListPage) {
+                if (isShowingDetailPage) {
                     stringResource(R.string.detail_fragment_label)
                 } else {
                     stringResource(R.string.list_fragment_label)
                 }
             )
         },
-        navigationIcon = if (isShowingListPage) {
+        navigationIcon = if (isShowingDetailPage) {
             {
                 IconButton(onClick = onBackButtonClick) {
                     Icon(
