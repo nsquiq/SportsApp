@@ -70,6 +70,7 @@ import com.example.sports.R
 import com.example.sports.data.LocalSportsDataProvider
 import com.example.sports.model.Sport
 import com.example.sports.ui.theme.SportsTheme
+import com.example.sports.utils.SportsContentType
 
 /**
  * Main composable that serves as container
@@ -83,15 +84,20 @@ fun SportsApp(
     val viewModel: SportsViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
 
+    val contentType : SportsContentType
     when(windowSize){
         WindowWidthSizeClass.Compact ->{
 
+
         }
         WindowWidthSizeClass.Medium ->{
-
+            contentType = SportsContentType.ListOnly
         }
         WindowWidthSizeClass.Expanded ->{
-
+           contentType = SportsContentType.ListAndDetail
+        }
+        else -> {
+            contentType = SportsContentType.ListOnly
         }
     }
     Scaffold(
@@ -99,11 +105,12 @@ fun SportsApp(
             SportsAppBar(
                 isShowingListPage = uiState.isShowingListPage,
                 onBackButtonClick = { viewModel.navigateToListPage() },
+
             )
         }
     ) { innerPadding ->
-        if (uiState.isShowingListPage) {
-            SportsList(
+        if (contentType == SportsContentType.ListAndDetail) {
+            SportsListAndDetail(
                 sports = uiState.sportsList,
 
                 onClick = {
@@ -355,6 +362,17 @@ private fun SportsDetail(
             )
         }
     }
+}
+@Composable
+private fun SportsListAndDetail(
+    sports: List<Sport>,
+    selectedSport: Sport,
+    onClick: (Sport) -> Unit,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+){
+
 }
 
 @Preview
