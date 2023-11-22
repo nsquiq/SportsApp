@@ -22,7 +22,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.Surface
 import com.example.sports.ui.SportsApp
 import com.example.sports.ui.theme.SportsTheme
-
+///
 /**
  * Activity for Sports app
  */
